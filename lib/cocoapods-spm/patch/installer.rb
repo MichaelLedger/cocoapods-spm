@@ -14,7 +14,7 @@ module Pod
     end
 
     patch_method :create_pod_installer do |pod_name|
-      if macro_pods.include?(pod_name)
+      if macro_pods&.include?(pod_name)
         macro_pod_installer = MacroPodInstaller.new(
           sandbox,
           podfile,
