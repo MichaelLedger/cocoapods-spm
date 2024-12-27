@@ -38,7 +38,7 @@ module Pod
       state = origin_sandbox_state
       # NOTE: For macro pods, we force-trigger their source installers even in incremental installations.
       # This is done by altering the `sandbox_state` & marking them as `added`
-      spm_config.all_macros.each do |name|
+      spm_config.all_macros&.each do |name|
         %i[unchanged changed deleted].each { |key| state.send(key).delete(name) }
         state.added << (name)
       end
