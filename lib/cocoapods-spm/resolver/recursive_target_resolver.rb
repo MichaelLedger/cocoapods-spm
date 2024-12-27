@@ -29,7 +29,18 @@ module Pod
             next if dep.pkg.try(:use_default_xcode_linking?)
 
             @podfile.platforms.each do |platform|
-              project_pkgs.resolve_recursive_targets_of(dep.pkg.name, dep.product, platform: platform)
+              begin
+                pkg_name = dep.pkg&.name
+                next unless pkg_name # Skip if package name is nil/undefined
+
+                project_pkgs.resolve_recursive_targets_of(
+                  pkg_name,
+                  dep.product,
+                  platform: platform
+                )
+              rescue StandardError => e
+                warn "Failed to resolve targets for #{pkg_name || 'unknown package'} on #{platform}: #{e.message}"
+              end
             end
           end
         end
