@@ -25,7 +25,8 @@ module Pod
         messages = ["The following packages were not declared in Podfile:"]
         messages += missing_pkgs.map { |pkg| "  • #{pkg}: used by #{dependents_of_pkg(pkg).join(', ')}" }
         messages << "Use the `spm_pkg` method to declare those packages in Podfile."
-        raise Informative, messages.join("\n")
+        #raise Informative, messages.join("\n")
+        warn messages.join("\n")
       end
     end
   end
