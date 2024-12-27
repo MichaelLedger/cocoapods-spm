@@ -7,7 +7,7 @@ module Pod
         end
 
         def macro_pods
-          pod_config.podfile.macro_pods
+          pod_config.podfile&.macro_pods
         end
 
         def local_macro_pod?(name)
@@ -53,7 +53,7 @@ module Pod
       end
 
       def all_macros
-        @all_macros ||= Pod::Config.instance.podfile.macro_pods.keys
+        @all_macros ||= Pod::Config.instance.podfile&.macro_pods.keys
       end
 
       def macros
