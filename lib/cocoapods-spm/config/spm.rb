@@ -15,7 +15,7 @@ module Pod
         end
 
         def local_macro_pod_dir(name)
-          opts = macro_pods.fetch(name, {})
+          opts = macro_pods&.fetch(name, {})
           return Path(opts[:podspec]).dirname if opts.key?(:podspec)
 
           Pathname(opts[:path]) if opts.key?(:path)
@@ -53,7 +53,7 @@ module Pod
       end
 
       def all_macros
-        @all_macros ||= Pod::Config.instance.podfile&.macro_pods.keys
+        @all_macros ||= Pod::Config.instance.podfile&.macro_pods&.keys
       end
 
       def macros
